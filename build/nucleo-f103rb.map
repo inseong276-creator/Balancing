@@ -1,0 +1,642 @@
+Archive member included because of file (symbol)
+
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o)
+                              build/src/sensor.c.o (atan2f)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o)
+                              c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o) (__ieee754_atan2f)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+                              c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o) (atanf)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_fabs.o)
+                              c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o) (fabsf)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubdf3.o)
+                              build/src/motor.c.o (__aeabi_i2d)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivdf3.o)
+                              build/src/motor.c.o (__aeabi_dmul)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixunsdfsi.o)
+                              build/src/motor.c.o (__aeabi_d2uiz)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubsf3.o)
+                              build/src/sensor.c.o (__aeabi_fsub)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivsf3.o)
+                              build/src/main.c.o (__aeabi_fmul)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_cmpsf2.o)
+                              build/src/motor.c.o (__aeabi_fcmplt)
+c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixsfsi.o)
+                              build/src/main.c.o (__aeabi_f2iz)
+
+Discarded input sections
+
+ .text          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+ .text          0x00000000       0xc8 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .data          0x00000000        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .bss           0x00000000       0x1c c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .init_array    0x00000000        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .fini_array    0x00000000        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .eh_frame      0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .jcr           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .tm_clone_table
+                0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .ARM.attributes
+                0x00000000       0x29 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/main.c.o
+ .text          0x00000000        0x0 build/src/main.c.o
+ .data          0x00000000        0x0 build/src/main.c.o
+ .bss           0x00000000        0x0 build/src/main.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/system_stm32f103xb.c.o
+ .text          0x00000000        0x0 build/src/system_stm32f103xb.c.o
+ .data          0x00000000        0x0 build/src/system_stm32f103xb.c.o
+ .bss           0x00000000        0x0 build/src/system_stm32f103xb.c.o
+ .text.SystemCoreClockUpdate
+                0x00000000       0x58 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000      0x868 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000       0x52 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000       0x16 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000       0x35 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000       0xa3 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000      0x20e build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000000      0x2da build/src/system_stm32f103xb.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/motor.c.o
+ .text          0x00000000        0x0 build/src/motor.c.o
+ .data          0x00000000        0x0 build/src/motor.c.o
+ .bss           0x00000000        0x0 build/src/motor.c.o
+ .debug_macro   0x00000000      0x868 build/src/motor.c.o
+ .debug_macro   0x00000000       0x52 build/src/motor.c.o
+ .debug_macro   0x00000000       0x16 build/src/motor.c.o
+ .debug_macro   0x00000000       0x35 build/src/motor.c.o
+ .debug_macro   0x00000000       0xa3 build/src/motor.c.o
+ .debug_macro   0x00000000      0x20e build/src/motor.c.o
+ .debug_macro   0x00000000      0x2da build/src/motor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/sensor.c.o
+ .text          0x00000000        0x0 build/src/sensor.c.o
+ .data          0x00000000        0x0 build/src/sensor.c.o
+ .bss           0x00000000        0x0 build/src/sensor.c.o
+ .debug_macro   0x00000000      0x868 build/src/sensor.c.o
+ .debug_macro   0x00000000       0x52 build/src/sensor.c.o
+ .debug_macro   0x00000000       0x16 build/src/sensor.c.o
+ .debug_macro   0x00000000       0x35 build/src/sensor.c.o
+ .debug_macro   0x00000000       0xa3 build/src/sensor.c.o
+ .debug_macro   0x00000000      0x20e build/src/sensor.c.o
+ .debug_macro   0x00000000      0x2da build/src/sensor.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .group         0x00000000        0x8 build/src/serial.c.o
+ .text          0x00000000        0x0 build/src/serial.c.o
+ .data          0x00000000        0x0 build/src/serial.c.o
+ .bss           0x00000000        0x0 build/src/serial.c.o
+ .debug_macro   0x00000000      0x868 build/src/serial.c.o
+ .debug_macro   0x00000000       0x52 build/src/serial.c.o
+ .debug_macro   0x00000000       0x16 build/src/serial.c.o
+ .debug_macro   0x00000000       0x35 build/src/serial.c.o
+ .debug_macro   0x00000000       0xa3 build/src/serial.c.o
+ .debug_macro   0x00000000      0x20e build/src/serial.c.o
+ .debug_macro   0x00000000      0x2da build/src/serial.c.o
+ .text          0x00000000        0x0 build/startup/startup_stm32f103xb.s.o
+ .data          0x00000000        0x0 build/startup/startup_stm32f103xb.s.o
+ .bss           0x00000000        0x0 build/startup/startup_stm32f103xb.s.o
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_fabs.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_fabs.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubdf3.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubdf3.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivdf3.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivdf3.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixunsdfsi.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixunsdfsi.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubsf3.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubsf3.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivsf3.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivsf3.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_cmpsf2.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_cmpsf2.o)
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixsfsi.o)
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixsfsi.o)
+ .text          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .eh_frame      0x00000000        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .jcr           0x00000000        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .tm_clone_table
+                0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .ARM.attributes
+                0x00000000       0x29 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+ .text          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+ .data          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+ .bss           0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00020000         xr
+RAM              0x20000000         0x00005000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+LOAD build/src/main.c.o
+LOAD build/src/system_stm32f103xb.c.o
+LOAD build/src/motor.c.o
+LOAD build/src/sensor.c.o
+LOAD build/src/serial.c.o
+LOAD build/startup/startup_stm32f103xb.s.o
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a
+START GROUP
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libc.a
+END GROUP
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtend.o
+LOAD c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+                0x20005000                _estack = (ORIGIN (RAM) + 0x5000)
+
+.isr_vector     0x08000000       0xec
+ *(.isr_vector)
+ .isr_vector    0x08000000       0xec build/startup/startup_stm32f103xb.s.o
+
+.text           0x080000f0     0x1ea0
+ *(.text.Reset_Handler)
+ .text.Reset_Handler
+                0x080000f0       0x4c build/startup/startup_stm32f103xb.s.o
+                0x080000f0                Reset_Handler
+ *(.text*)
+ .text.delay_ms
+                0x0800013c       0x18 build/src/main.c.o
+ .text.Get_DT   0x08000154       0x2c build/src/main.c.o
+                0x08000154                Get_DT
+ .text.TIM1_INIT
+                0x08000180       0x2c build/src/main.c.o
+                0x08000180                TIM1_INIT
+ .text.startup.main
+                0x080001ac      0x18c build/src/main.c.o
+                0x080001ac                main
+ .text.SystemInit
+                0x08000338       0xac build/src/system_stm32f103xb.c.o
+                0x08000338                SystemInit
+ .text.Encoder_TIMx_Init
+                0x080003e4       0x6a build/src/motor.c.o
+ *fill*         0x0800044e        0x2 
+ .text.Motor_GPIO_Init
+                0x08000450       0xa4 build/src/motor.c.o
+                0x08000450                Motor_GPIO_Init
+ .text.Encoder_Init
+                0x080004f4       0x1c build/src/motor.c.o
+                0x080004f4                Encoder_Init
+ .text.Motor_PWM_Init
+                0x08000510       0x5a build/src/motor.c.o
+                0x08000510                Motor_PWM_Init
+ *fill*         0x0800056a        0x2 
+ .text.Motor_SetStandby
+                0x0800056c       0x14 build/src/motor.c.o
+                0x0800056c                Motor_SetStandby
+ .text.Motor_Forward
+                0x08000580       0x24 build/src/motor.c.o
+                0x08000580                Motor_Forward
+ .text.Motor_Reverse
+                0x080005a4       0x24 build/src/motor.c.o
+                0x080005a4                Motor_Reverse
+ .text.Motor_Brake
+                0x080005c8       0x24 build/src/motor.c.o
+                0x080005c8                Motor_Brake
+ *fill*         0x080005ec        0x4 
+ .text.Motor_SetSigned
+                0x080005f0       0x68 build/src/motor.c.o
+                0x080005f0                Motor_SetSigned
+ .text.Right_GetSpeed
+                0x08000658       0x4c build/src/motor.c.o
+                0x08000658                Right_GetSpeed
+ .text.Left_GetSpeed
+                0x080006a4       0x4c build/src/motor.c.o
+                0x080006a4                Left_GetSpeed
+ .text.Motor_PID_Control
+                0x080006f0       0x38 build/src/motor.c.o
+                0x080006f0                Motor_PID_Control
+ .text.wait_set.constprop.4
+                0x08000728       0x20 build/src/sensor.c.o
+ .text.I2C2_SendAddress.constprop.2
+                0x08000748       0x2c build/src/sensor.c.o
+ .text.I2C2_ReadByte_Nack
+                0x08000774       0x2c build/src/sensor.c.o
+ .text.I2C2_WriteByte
+                0x080007a0       0x20 build/src/sensor.c.o
+ .text.I2C2_Start
+                0x080007c0       0x14 build/src/sensor.c.o
+ .text.delay_loop.constprop.5
+                0x080007d4       0x10 build/src/sensor.c.o
+ .text.I2C2_Recover
+                0x080007e4       0xe0 build/src/sensor.c.o
+ .text.Sensor_I2C2_Init
+                0x080008c4       0x6c build/src/sensor.c.o
+                0x080008c4                Sensor_I2C2_Init
+ .text.Sensor_FilterReset
+                0x08000930        0x2 build/src/sensor.c.o
+                0x08000930                Sensor_FilterReset
+ *fill*         0x08000932        0x2 
+ .text.Sensor_MPU6050_Init
+                0x08000934       0x68 build/src/sensor.c.o
+                0x08000934                Sensor_MPU6050_Init
+ .text.Sensor_MPU6050_ReadRaw
+                0x0800099c      0x11c build/src/sensor.c.o
+                0x0800099c                Sensor_MPU6050_ReadRaw
+ .text.Sensor_GetPitchAccDeg
+                0x08000ab8       0x28 build/src/sensor.c.o
+                0x08000ab8                Sensor_GetPitchAccDeg
+ .text.Sensor_GetGyroYDegPerSec
+                0x08000ae0       0x14 build/src/sensor.c.o
+                0x08000ae0                Sensor_GetGyroYDegPerSec
+ .text.Sensor_ComplementaryFilter
+                0x08000af4       0x38 build/src/sensor.c.o
+                0x08000af4                Sensor_ComplementaryFilter
+ .text.Sensor_PID_Reset
+                0x08000b2c        0xc build/src/sensor.c.o
+                0x08000b2c                Sensor_PID_Reset
+ .text.Sensor_PID_Control
+                0x08000b38       0x80 build/src/sensor.c.o
+                0x08000b38                Sensor_PID_Control
+ .text.Serial_USART2_Init
+                0x08000bb8       0x54 build/src/serial.c.o
+                0x08000bb8                Serial_USART2_Init
+ .text.Serial_WriteChar
+                0x08000c0c       0x14 build/src/serial.c.o
+                0x08000c0c                Serial_WriteChar
+ .text.Serial_WriteString
+                0x08000c20       0x12 build/src/serial.c.o
+                0x08000c20                Serial_WriteString
+ .text.Serial_WriteInt
+                0x08000c32       0x4a build/src/serial.c.o
+                0x08000c32                Serial_WriteInt
+ .text.Serial_WriteFloat2
+                0x08000c7c       0x68 build/src/serial.c.o
+                0x08000c7c                Serial_WriteFloat2
+ .text.Default_Handler
+                0x08000ce4       0x6c build/startup/startup_stm32f103xb.s.o
+                0x08000ce8                NMI_Handler
+                0x08000cea                HardFault_Handler
+                0x08000cec                MemManage_Handler
+                0x08000cee                BusFault_Handler
+                0x08000cf0                UsageFault_Handler
+                0x08000cf2                SVC_Handler
+                0x08000cf4                DebugMon_Handler
+                0x08000cf6                PendSV_Handler
+                0x08000cf8                SysTick_Handler
+                0x08000cfa                WWDG_IRQHandler
+                0x08000cfc                PVD_IRQHandler
+                0x08000cfe                TAMPER_IRQHandler
+                0x08000d00                RTC_IRQHandler
+                0x08000d02                FLASH_IRQHandler
+                0x08000d04                RCC_IRQHandler
+                0x08000d06                EXTI0_IRQHandler
+                0x08000d08                EXTI1_IRQHandler
+                0x08000d0a                EXTI2_IRQHandler
+                0x08000d0c                EXTI3_IRQHandler
+                0x08000d0e                EXTI4_IRQHandler
+                0x08000d10                DMA1_Channel1_IRQHandler
+                0x08000d12                DMA1_Channel2_IRQHandler
+                0x08000d14                DMA1_Channel3_IRQHandler
+                0x08000d16                DMA1_Channel4_IRQHandler
+                0x08000d18                DMA1_Channel5_IRQHandler
+                0x08000d1a                DMA1_Channel6_IRQHandler
+                0x08000d1c                DMA1_Channel7_IRQHandler
+                0x08000d1e                ADC1_2_IRQHandler
+                0x08000d20                USB_HP_CAN_TX_IRQHandler
+                0x08000d22                USB_LP_CAN_RX0_IRQHandler
+                0x08000d24                CAN_RX1_IRQHandler
+                0x08000d26                CAN_SCE_IRQHandler
+                0x08000d28                EXTI9_5_IRQHandler
+                0x08000d2a                TIM1_BRK_IRQHandler
+                0x08000d2c                TIM1_UP_IRQHandler
+                0x08000d2e                TIM1_TRG_COM_IRQHandler
+                0x08000d30                TIM1_CC_IRQHandler
+                0x08000d32                TIM2_IRQHandler
+                0x08000d34                TIM3_IRQHandler
+                0x08000d36                TIM4_IRQHandler
+                0x08000d38                I2C1_EV_IRQHandler
+                0x08000d3a                I2C1_ER_IRQHandler
+                0x08000d3c                I2C2_EV_IRQHandler
+                0x08000d3e                I2C2_ER_IRQHandler
+                0x08000d40                SPI1_IRQHandler
+                0x08000d42                SPI2_IRQHandler
+                0x08000d44                USART1_IRQHandler
+                0x08000d46                USART2_IRQHandler
+                0x08000d48                USART3_IRQHandler
+                0x08000d4a                EXTI15_10_IRQHandler
+                0x08000d4c                RTCAlarm_IRQHandler
+                0x08000d4e                USBWakeUp_IRQHandler
+ .text          0x08000d50        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o)
+                0x08000d50                atan2f
+ .text          0x08000d54      0x148 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o)
+                0x08000d54                __ieee754_atan2f
+ .text          0x08000e9c      0x230 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+                0x08000e9c                atanf
+ .text          0x080010cc        0x8 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_fabs.o)
+                0x080010cc                fabsf
+ .text          0x080010d4      0x370 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubdf3.o)
+                0x080010d4                __aeabi_drsub
+                0x080010dc                __aeabi_dsub
+                0x080010dc                __subdf3
+                0x080010e0                __aeabi_dadd
+                0x080010e0                __adddf3
+                0x08001358                __floatunsidf
+                0x08001358                __aeabi_ui2d
+                0x08001378                __floatsidf
+                0x08001378                __aeabi_i2d
+                0x0800139c                __aeabi_f2d
+                0x0800139c                __extendsfdf2
+                0x080013d8                __floatundidf
+                0x080013d8                __aeabi_ul2d
+                0x080013e8                __floatdidf
+                0x080013e8                __aeabi_l2d
+ .text          0x08001444      0x424 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivdf3.o)
+                0x08001444                __aeabi_dmul
+                0x08001444                __muldf3
+                0x08001698                __divdf3
+                0x08001698                __aeabi_ddiv
+ .text          0x08001868       0x40 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixunsdfsi.o)
+                0x08001868                __aeabi_d2uiz
+                0x08001868                __fixunsdfsi
+ .text          0x080018a8      0x21c c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubsf3.o)
+                0x080018a8                __aeabi_frsub
+                0x080018b0                __subsf3
+                0x080018b0                __aeabi_fsub
+                0x080018b4                __aeabi_fadd
+                0x080018b4                __addsf3
+                0x08001a14                __aeabi_ui2f
+                0x08001a14                __floatunsisf
+                0x08001a1c                __aeabi_i2f
+                0x08001a1c                __floatsisf
+                0x08001a38                __aeabi_ul2f
+                0x08001a38                __floatundisf
+                0x08001a48                __aeabi_l2f
+                0x08001a48                __floatdisf
+ .text          0x08001ac4      0x2a0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivsf3.o)
+                0x08001ac4                __mulsf3
+                0x08001ac4                __aeabi_fmul
+                0x08001c2c                __aeabi_fdiv
+                0x08001c2c                __divsf3
+ .text          0x08001d64       0xec c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_cmpsf2.o)
+                0x08001d64                __gesf2
+                0x08001d64                __gtsf2
+                0x08001d6c                __lesf2
+                0x08001d6c                __ltsf2
+                0x08001d74                __nesf2
+                0x08001d74                __eqsf2
+                0x08001d74                __cmpsf2
+                0x08001dd4                __aeabi_cfrcmple
+                0x08001ddc                __aeabi_cfcmpeq
+                0x08001ddc                __aeabi_cfcmple
+                0x08001dec                __aeabi_fcmpeq
+                0x08001e00                __aeabi_fcmplt
+                0x08001e14                __aeabi_fcmple
+                0x08001e28                __aeabi_fcmpge
+                0x08001e3c                __aeabi_fcmpgt
+ .text          0x08001e50       0x4c c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixsfsi.o)
+                0x08001e50                __aeabi_f2iz
+                0x08001e50                __fixsfsi
+ *(.rodata*)
+ .rodata.str1.1
+                0x08001e9c       0xba build/src/main.c.o
+                                 0xbd (size before relaxing)
+ *fill*         0x08001f56        0x2 
+ .rodata        0x08001f58       0x20 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+ *(.init)
+ .init          0x08001f78        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+                0x08001f78                _init
+ .init          0x08001f7c        0x8 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+ *(.fini)
+ .fini          0x08001f84        0x4 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+                0x08001f84                _fini
+ .fini          0x08001f88        0x8 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+                0x08001f90                _etext = .
+                0x08001f90                _sidata = _etext
+
+.glue_7         0x08001f90        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x08001f90        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x08001f90        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08001f90        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x08001f90        0x0
+ .iplt          0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+
+.rel.dyn        0x08001f90        0x0
+ .rel.iplt      0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+
+.data           0x20000000        0x4 load address 0x08001f90
+                0x20000000                _sdata = .
+ *(.data*)
+ .data.SystemCoreClock
+                0x20000000        0x4 build/src/system_stm32f103xb.c.o
+                0x20000000                SystemCoreClock
+                0x20000004                _edata = .
+
+.igot.plt       0x20000004        0x0 load address 0x08001f94
+ .igot.plt      0x00000000        0x0 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtbegin.o
+
+.bss            0x20000004       0x14 load address 0x08001f94
+                0x20000004                _sbss = .
+ *(.bss*)
+ .bss.last_cnt.4151
+                0x20000004        0x2 build/src/main.c.o
+ *fill*         0x20000006        0x2 
+ .bss.initialized.4126
+                0x20000008        0x4 build/src/motor.c.o
+ .bss.initialized.4134
+                0x2000000c        0x4 build/src/motor.c.o
+ .bss.v_prev.4125
+                0x20000010        0x2 build/src/motor.c.o
+ .bss.v_prev.4133
+                0x20000012        0x2 build/src/motor.c.o
+ .bss.integral  0x20000014        0x4 build/src/sensor.c.o
+ *(COMMON)
+                0x20000018                _ebss = .
+                0x20000018                . = ALIGN (0x4)
+                0x20000018                _end = .
+OUTPUT(bin/nucleo-f103rb.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x27
+ .ARM.attributes
+                0x00000000       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crti.o
+ .ARM.attributes
+                0x00000019       0x33 build/src/main.c.o
+ .ARM.attributes
+                0x0000004c       0x33 build/src/system_stm32f103xb.c.o
+ .ARM.attributes
+                0x0000007f       0x33 build/src/motor.c.o
+ .ARM.attributes
+                0x000000b2       0x33 build/src/sensor.c.o
+ .ARM.attributes
+                0x000000e5       0x33 build/src/serial.c.o
+ .ARM.attributes
+                0x00000118       0x21 build/startup/startup_stm32f103xb.s.o
+ .ARM.attributes
+                0x00000139       0x29 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o)
+ .ARM.attributes
+                0x00000162       0x29 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o)
+ .ARM.attributes
+                0x0000018b       0x29 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+ .ARM.attributes
+                0x000001b4       0x29 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_fabs.o)
+ .ARM.attributes
+                0x000001dd       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubdf3.o)
+ .ARM.attributes
+                0x000001f6       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivdf3.o)
+ .ARM.attributes
+                0x0000020f       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixunsdfsi.o)
+ .ARM.attributes
+                0x00000228       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_addsubsf3.o)
+ .ARM.attributes
+                0x00000241       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_muldivsf3.o)
+ .ARM.attributes
+                0x0000025a       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_cmpsf2.o)
+ .ARM.attributes
+                0x00000273       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2\libgcc.a(_arm_fixsfsi.o)
+ .ARM.attributes
+                0x0000028c       0x19 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/thumb2/crtn.o
+
+.comment        0x00000000       0x30
+ .comment       0x00000000       0x30 build/src/main.c.o
+                                 0x31 (size before relaxing)
+ .comment       0x00000000       0x31 build/src/system_stm32f103xb.c.o
+ .comment       0x00000000       0x31 build/src/motor.c.o
+ .comment       0x00000000       0x31 build/src/sensor.c.o
+ .comment       0x00000000       0x31 build/src/serial.c.o
+
+.debug_info     0x00000000     0x1d8f
+ .debug_info    0x00000000      0x8df build/src/main.c.o
+ .debug_info    0x000008df      0x232 build/src/system_stm32f103xb.c.o
+ .debug_info    0x00000b11      0x522 build/src/motor.c.o
+ .debug_info    0x00001033      0x995 build/src/sensor.c.o
+ .debug_info    0x000019c8      0x3c7 build/src/serial.c.o
+
+.debug_abbrev   0x00000000      0x9ab
+ .debug_abbrev  0x00000000      0x211 build/src/main.c.o
+ .debug_abbrev  0x00000211       0xcd build/src/system_stm32f103xb.c.o
+ .debug_abbrev  0x000002de      0x1c7 build/src/motor.c.o
+ .debug_abbrev  0x000004a5      0x390 build/src/sensor.c.o
+ .debug_abbrev  0x00000835      0x176 build/src/serial.c.o
+
+.debug_loc      0x00000000      0x97d
+ .debug_loc     0x00000000      0x21f build/src/main.c.o
+ .debug_loc     0x0000021f       0x3f build/src/system_stm32f103xb.c.o
+ .debug_loc     0x0000025e      0x17a build/src/motor.c.o
+ .debug_loc     0x000003d8      0x3f9 build/src/sensor.c.o
+ .debug_loc     0x000007d1      0x1ac build/src/serial.c.o
+
+.debug_aranges  0x00000000      0x1b0
+ .debug_aranges
+                0x00000000       0x38 build/src/main.c.o
+ .debug_aranges
+                0x00000038       0x28 build/src/system_stm32f103xb.c.o
+ .debug_aranges
+                0x00000060       0x78 build/src/motor.c.o
+ .debug_aranges
+                0x000000d8       0x98 build/src/sensor.c.o
+ .debug_aranges
+                0x00000170       0x40 build/src/serial.c.o
+
+.debug_ranges   0x00000000      0x1d0
+ .debug_ranges  0x00000000       0x28 build/src/main.c.o
+ .debug_ranges  0x00000028       0x18 build/src/system_stm32f103xb.c.o
+ .debug_ranges  0x00000040       0x68 build/src/motor.c.o
+ .debug_ranges  0x000000a8       0xf8 build/src/sensor.c.o
+ .debug_ranges  0x000001a0       0x30 build/src/serial.c.o
+
+.debug_macro    0x00000000     0x151c
+ .debug_macro   0x00000000       0x94 build/src/main.c.o
+ .debug_macro   0x00000094      0x868 build/src/main.c.o
+ .debug_macro   0x000008fc       0x52 build/src/main.c.o
+ .debug_macro   0x0000094e       0x16 build/src/main.c.o
+ .debug_macro   0x00000964       0x35 build/src/main.c.o
+ .debug_macro   0x00000999       0xa3 build/src/main.c.o
+ .debug_macro   0x00000a3c      0x20e build/src/main.c.o
+ .debug_macro   0x00000c4a      0x2da build/src/main.c.o
+ .debug_macro   0x00000f24       0x28 build/src/main.c.o
+ .debug_macro   0x00000f4c       0x73 build/src/system_stm32f103xb.c.o
+ .debug_macro   0x00000fbf       0x7c build/src/motor.c.o
+ .debug_macro   0x0000103b       0x22 build/src/motor.c.o
+ .debug_macro   0x0000105d      0x10d build/src/sensor.c.o
+ .debug_macro   0x0000116a       0x3a build/src/sensor.c.o
+ .debug_macro   0x000011a4       0x52 build/src/sensor.c.o
+ .debug_macro   0x000011f6       0x16 build/src/sensor.c.o
+ .debug_macro   0x0000120c       0x19 build/src/sensor.c.o
+ .debug_macro   0x00001225      0x19c build/src/sensor.c.o
+ .debug_macro   0x000013c1       0xde build/src/sensor.c.o
+ .debug_macro   0x0000149f       0x7d build/src/serial.c.o
+
+.debug_line     0x00000000      0xd87
+ .debug_line    0x00000000      0x259 build/src/main.c.o
+ .debug_line    0x00000259      0x1e6 build/src/system_stm32f103xb.c.o
+ .debug_line    0x0000043f      0x2e3 build/src/motor.c.o
+ .debug_line    0x00000722      0x42b build/src/sensor.c.o
+ .debug_line    0x00000b4d      0x23a build/src/serial.c.o
+
+.debug_str      0x00000000     0x5f0e
+ .debug_str     0x00000000     0x405c build/src/main.c.o
+                               0x419a (size before relaxing)
+ .debug_str     0x0000405c       0x8c build/src/system_stm32f103xb.c.o
+                               0x3f1e (size before relaxing)
+ .debug_str     0x000040e8       0x9e build/src/motor.c.o
+                               0x4070 (size before relaxing)
+ .debug_str     0x00004186     0x1d27 build/src/sensor.c.o
+                               0x5d10 (size before relaxing)
+ .debug_str     0x00005ead       0x61 build/src/serial.c.o
+                               0x3f5d (size before relaxing)
+
+.debug_frame    0x00000000      0x458
+ .debug_frame   0x00000000       0x70 build/src/main.c.o
+ .debug_frame   0x00000070       0x3c build/src/system_stm32f103xb.c.o
+ .debug_frame   0x000000ac      0x100 build/src/motor.c.o
+ .debug_frame   0x000001ac      0x188 build/src/sensor.c.o
+ .debug_frame   0x00000334       0x84 build/src/serial.c.o
+ .debug_frame   0x000003b8       0x20 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-wf_atan2.o)
+ .debug_frame   0x000003d8       0x30 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-ef_atan2.o)
+ .debug_frame   0x00000408       0x30 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_atan.o)
+ .debug_frame   0x00000438       0x20 c:/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.8.1/../../../../arm-none-eabi/lib/thumb2\libm.a(lib_a-sf_fabs.o)

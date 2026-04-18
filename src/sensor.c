@@ -14,6 +14,9 @@
 #define KI                    0.0f
 #define KD                    1.2f
 #define PWM_MAX               900.0f
+#define I2C_SR1_BERR          (1UL << 8)
+#define I2C_SR1_ARLO          (1UL << 9)
+#define I2C_SR1_AF            (1UL << 10)
 
 static float integral = 0.0f;
 
@@ -23,12 +26,14 @@ typedef struct {
     uint8_t dev_addr;
     uint8_t reg;
     uint8_t index;
+    uint8_t scl_level;
+    uint8_t sda_level;
     uint32_t sr1;
     uint32_t sr2;
 } I2C2_ErrorInfo;
 
 static I2C2_ErrorInfo g_i2c2_last_error = {
-    "none", "none", 0U, 0U, 0xFFU, 0U, 0U
+    "none", "none", 0U, 0U, 0xFFU, 0U, 0U, 0U, 0U
 };
 
 static void delay_loop(volatile uint32_t count)
@@ -70,6 +75,8 @@ static void I2C2_SetError(const char *op,
     g_i2c2_last_error.dev_addr = dev_addr;
     g_i2c2_last_error.reg = reg;
     g_i2c2_last_error.index = index;
+    g_i2c2_last_error.scl_level = (uint8_t)((GPIOB->IDR >> 10) & 0x1U);
+    g_i2c2_last_error.sda_level = (uint8_t)((GPIOB->IDR >> 11) & 0x1U);
     g_i2c2_last_error.sr1 = I2C2->SR1;
     g_i2c2_last_error.sr2 = I2C2->SR2;
 }
@@ -81,8 +88,48 @@ static void I2C2_ClearError(void)
     g_i2c2_last_error.dev_addr = 0U;
     g_i2c2_last_error.reg = 0U;
     g_i2c2_last_error.index = 0xFFU;
+    g_i2c2_last_error.scl_level = 0U;
+    g_i2c2_last_error.sda_level = 0U;
     g_i2c2_last_error.sr1 = 0U;
     g_i2c2_last_error.sr2 = 0U;
+}
+
+static void I2C2_PrintFlag(const char *name)
+{
+    Serial_WriteChar(' ');
+    Serial_WriteString(name);
+}
+
+static void I2C2_PrintDiagnosis(void)
+{
+    Serial_WriteString(" cause=");
+
+    if (g_i2c2_last_error.scl_level == 0U || g_i2c2_last_error.sda_level == 0U) {
+        Serial_WriteString("bus_line_stuck_low");
+        return;
+    }
+
+    if ((g_i2c2_last_error.sr1 & I2C_SR1_AF) != 0U) {
+        Serial_WriteString("no_ack_sensor_or_addr");
+        return;
+    }
+
+    if ((g_i2c2_last_error.sr1 & I2C_SR1_ARLO) != 0U) {
+        Serial_WriteString("arbitration_lost_or_bus_contention");
+        return;
+    }
+
+    if ((g_i2c2_last_error.sr1 & I2C_SR1_BERR) != 0U) {
+        Serial_WriteString("bus_protocol_error_or_noise");
+        return;
+    }
+
+    if ((g_i2c2_last_error.sr2 & I2C_SR2_BUSY) != 0U) {
+        Serial_WriteString("bus_busy_stuck");
+        return;
+    }
+
+    Serial_WriteString("timeout_without_error_flag");
 }
 
 /* ---------------- I2C2 low-level ---------------- */
@@ -482,10 +529,30 @@ void Sensor_PrintLastI2CError(void)
         Serial_WriteInt(g_i2c2_last_error.index);
     }
 
+    Serial_WriteString(" SCL=");
+    Serial_WriteInt(g_i2c2_last_error.scl_level);
+    Serial_WriteString(" SDA=");
+    Serial_WriteInt(g_i2c2_last_error.sda_level);
     Serial_WriteString(" SR1=0x");
     Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr1);
     Serial_WriteString(" SR2=0x");
     Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr2);
+
+    Serial_WriteString(" flags=");
+    if ((g_i2c2_last_error.sr1 & I2C_SR1_AF) != 0U) {
+        I2C2_PrintFlag("AF");
+    }
+    if ((g_i2c2_last_error.sr1 & I2C_SR1_BERR) != 0U) {
+        I2C2_PrintFlag("BERR");
+    }
+    if ((g_i2c2_last_error.sr1 & I2C_SR1_ARLO) != 0U) {
+        I2C2_PrintFlag("ARLO");
+    }
+    if ((g_i2c2_last_error.sr2 & I2C_SR2_BUSY) != 0U) {
+        I2C2_PrintFlag("BUSY");
+    }
+
+    I2C2_PrintDiagnosis();
     Serial_WriteString("\r\n");
 }
 

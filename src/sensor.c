@@ -28,13 +28,16 @@ typedef struct {
     uint8_t index;
     uint8_t scl_level;
     uint8_t sda_level;
+    uint32_t sr1_seen;
     uint32_t sr1;
     uint32_t sr2;
 } I2C2_ErrorInfo;
 
 static I2C2_ErrorInfo g_i2c2_last_error = {
-    "none", "none", 0U, 0U, 0xFFU, 0U, 0U, 0U, 0U
+    "none", "none", 0U, 0U, 0xFFU, 0U, 0U, 0U, 0U, 0U
 };
+
+static uint32_t g_i2c2_sr1_seen = 0U;
 
 static void delay_loop(volatile uint32_t count)
 {
@@ -77,6 +80,7 @@ static void I2C2_SetError(const char *op,
     g_i2c2_last_error.index = index;
     g_i2c2_last_error.scl_level = (uint8_t)((GPIOB->IDR >> 10) & 0x1U);
     g_i2c2_last_error.sda_level = (uint8_t)((GPIOB->IDR >> 11) & 0x1U);
+    g_i2c2_last_error.sr1_seen = g_i2c2_sr1_seen;
     g_i2c2_last_error.sr1 = I2C2->SR1;
     g_i2c2_last_error.sr2 = I2C2->SR2;
 }
@@ -90,8 +94,10 @@ static void I2C2_ClearError(void)
     g_i2c2_last_error.index = 0xFFU;
     g_i2c2_last_error.scl_level = 0U;
     g_i2c2_last_error.sda_level = 0U;
+    g_i2c2_last_error.sr1_seen = 0U;
     g_i2c2_last_error.sr1 = 0U;
     g_i2c2_last_error.sr2 = 0U;
+    g_i2c2_sr1_seen = 0U;
 }
 
 static void I2C2_PrintFlag(const char *name)
@@ -300,18 +306,26 @@ static void I2C2_Stop(void)
 static int I2C2_SendAddress(uint8_t addr)
 {
     volatile uint32_t temp;
+    uint32_t sr1;
+    uint32_t timeout = 100000U;
+
+    g_i2c2_sr1_seen = 0U;
 
     I2C2->DR = addr;
 
-    if (wait_set(&I2C2->SR1, I2C_SR1_ADDR) < 0) {
-        return -1;
+    while (timeout-- != 0U) {
+        sr1 = I2C2->SR1;
+        g_i2c2_sr1_seen |= sr1 & (I2C_SR1_ADDR | I2C_SR1_AF | I2C_SR1_BERR | I2C_SR1_ARLO);
+
+        if ((sr1 & I2C_SR1_ADDR) != 0U) {
+            temp = I2C2->SR1;
+            temp = I2C2->SR2;
+            (void)temp;
+            return 0;
+        }
     }
 
-    temp = I2C2->SR1;
-    temp = I2C2->SR2;
-    (void)temp;
-
-    return 0;
+    return -1;
 }
 
 static int I2C2_WriteByte(uint8_t data)
@@ -537,6 +551,8 @@ void Sensor_PrintLastI2CError(void)
     Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr1);
     Serial_WriteString(" SR2=0x");
     Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr2);
+    Serial_WriteString(" SR1_SEEN=0x");
+    Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr1_seen);
 
     Serial_WriteString(" flags=");
     if ((g_i2c2_last_error.sr1 & I2C_SR1_AF) != 0U) {
@@ -550,6 +566,18 @@ void Sensor_PrintLastI2CError(void)
     }
     if ((g_i2c2_last_error.sr2 & I2C_SR2_BUSY) != 0U) {
         I2C2_PrintFlag("BUSY");
+    }
+    if ((g_i2c2_last_error.sr1_seen & I2C_SR1_AF) != 0U &&
+        (g_i2c2_last_error.sr1 & I2C_SR1_AF) == 0U) {
+        I2C2_PrintFlag("AF_SEEN");
+    }
+    if ((g_i2c2_last_error.sr1_seen & I2C_SR1_BERR) != 0U &&
+        (g_i2c2_last_error.sr1 & I2C_SR1_BERR) == 0U) {
+        I2C2_PrintFlag("BERR_SEEN");
+    }
+    if ((g_i2c2_last_error.sr1_seen & I2C_SR1_ARLO) != 0U &&
+        (g_i2c2_last_error.sr1 & I2C_SR1_ARLO) == 0U) {
+        I2C2_PrintFlag("ARLO_SEEN");
     }
 
     I2C2_PrintDiagnosis();

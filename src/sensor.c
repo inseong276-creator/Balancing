@@ -1,4 +1,5 @@
 #include "sensor.h"
+#include "serial.h"
 #include <math.h>
 
 #define MPU6050_ADDR          0x68
@@ -16,11 +17,72 @@
 
 static float integral = 0.0f;
 
+typedef struct {
+    const char *op;
+    const char *step;
+    uint8_t dev_addr;
+    uint8_t reg;
+    uint8_t index;
+    uint32_t sr1;
+    uint32_t sr2;
+} I2C2_ErrorInfo;
+
+static I2C2_ErrorInfo g_i2c2_last_error = {
+    "none", "none", 0U, 0U, 0xFFU, 0U, 0U
+};
+
 static void delay_loop(volatile uint32_t count)
 {
     while (count--) {
         __asm volatile("nop");
     }
+}
+
+static void Serial_WriteHex4(uint8_t value)
+{
+    char c;
+
+    value &= 0x0FU;
+    c = (char)(value < 10U ? ('0' + (char)value) : ('A' + (char)(value - 10U)));
+    Serial_WriteChar(c);
+}
+
+static void Serial_WriteHex8(uint8_t value)
+{
+    Serial_WriteHex4((uint8_t)(value >> 4));
+    Serial_WriteHex4(value);
+}
+
+static void Serial_WriteHex16(uint16_t value)
+{
+    Serial_WriteHex8((uint8_t)(value >> 8));
+    Serial_WriteHex8((uint8_t)value);
+}
+
+static void I2C2_SetError(const char *op,
+                          const char *step,
+                          uint8_t dev_addr,
+                          uint8_t reg,
+                          uint8_t index)
+{
+    g_i2c2_last_error.op = op;
+    g_i2c2_last_error.step = step;
+    g_i2c2_last_error.dev_addr = dev_addr;
+    g_i2c2_last_error.reg = reg;
+    g_i2c2_last_error.index = index;
+    g_i2c2_last_error.sr1 = I2C2->SR1;
+    g_i2c2_last_error.sr2 = I2C2->SR2;
+}
+
+static void I2C2_ClearError(void)
+{
+    g_i2c2_last_error.op = "none";
+    g_i2c2_last_error.step = "none";
+    g_i2c2_last_error.dev_addr = 0U;
+    g_i2c2_last_error.reg = 0U;
+    g_i2c2_last_error.index = 0xFFU;
+    g_i2c2_last_error.sr1 = 0U;
+    g_i2c2_last_error.sr2 = 0U;
 }
 
 /* ---------------- I2C2 low-level ---------------- */
@@ -240,36 +302,43 @@ static int I2C2_ReadByte_Nack(uint8_t *data)
 static int I2C2_WriteReg(uint8_t dev_addr, uint8_t reg, uint8_t data)
 {
     if (wait_clear(&I2C2->SR2, I2C_SR2_BUSY) < 0) {
+        I2C2_SetError("write_reg", "wait_busy_clear", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_Start() < 0) {
+        I2C2_SetError("write_reg", "start", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_SendAddress((uint8_t)((dev_addr << 1) | 0U)) < 0) {
+        I2C2_SetError("write_reg", "send_addr_w", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_WriteByte(reg) < 0) {
+        I2C2_SetError("write_reg", "write_reg_addr", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_WriteByte(data) < 0) {
+        I2C2_SetError("write_reg", "write_data", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (wait_set(&I2C2->SR1, I2C_SR1_BTF) < 0) {
+        I2C2_SetError("write_reg", "wait_btf", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     I2C2_Stop();
+    I2C2_ClearError();
     return 0;
 }
 
@@ -279,31 +348,37 @@ static int I2C2_ReadRegs(uint8_t dev_addr, uint8_t reg, uint8_t *buf, uint8_t le
     uint8_t i;
 
     if (wait_clear(&I2C2->SR2, I2C_SR2_BUSY) < 0) {
+        I2C2_SetError("read_regs", "wait_busy_clear", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_Start() < 0) {
+        I2C2_SetError("read_regs", "start_w", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_SendAddress((uint8_t)((dev_addr << 1) | 0U)) < 0) {
+        I2C2_SetError("read_regs", "send_addr_w", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_WriteByte(reg) < 0) {
+        I2C2_SetError("read_regs", "write_reg_addr", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (wait_set(&I2C2->SR1, I2C_SR1_BTF) < 0) {
+        I2C2_SetError("read_regs", "wait_btf_before_restart", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
 
     if (I2C2_Start() < 0) {
+        I2C2_SetError("read_regs", "restart_r", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
@@ -311,6 +386,7 @@ static int I2C2_ReadRegs(uint8_t dev_addr, uint8_t reg, uint8_t *buf, uint8_t le
     I2C2->DR = (uint8_t)((dev_addr << 1) | 1U);
 
     if (wait_set(&I2C2->SR1, I2C_SR1_ADDR) < 0) {
+        I2C2_SetError("read_regs", "send_addr_r", dev_addr, reg, 0xFFU);
         I2C2_Recover();
         return -1;
     }
@@ -324,6 +400,7 @@ static int I2C2_ReadRegs(uint8_t dev_addr, uint8_t reg, uint8_t *buf, uint8_t le
         I2C2_Stop();
 
         if (I2C2_ReadByte_Nack(&buf[0]) < 0) {
+            I2C2_SetError("read_regs", "read_last_byte", dev_addr, reg, 0U);
             I2C2_Recover();
             return -1;
         }
@@ -339,11 +416,13 @@ static int I2C2_ReadRegs(uint8_t dev_addr, uint8_t reg, uint8_t *buf, uint8_t le
                 I2C2_Stop();
 
                 if (I2C2_ReadByte_Nack(&buf[i]) < 0) {
+                    I2C2_SetError("read_regs", "read_last_byte", dev_addr, reg, i);
                     I2C2_Recover();
                     return -1;
                 }
             } else {
                 if (I2C2_ReadByte_Ack(&buf[i]) < 0) {
+                    I2C2_SetError("read_regs", "read_byte", dev_addr, reg, i);
                     I2C2_Recover();
                     return -1;
                 }
@@ -352,6 +431,7 @@ static int I2C2_ReadRegs(uint8_t dev_addr, uint8_t reg, uint8_t *buf, uint8_t le
     }
 
     I2C2->CR1 |= I2C_CR1_ACK;
+    I2C2_ClearError();
     return 0;
 }
 
@@ -384,6 +464,29 @@ int Sensor_MPU6050_ReadRaw(MPU6050_RawData *raw)
     raw->gz = (int16_t)((data[12] << 8) | data[13]);
 
     return 0;
+}
+
+void Sensor_PrintLastI2CError(void)
+{
+    Serial_WriteString("I2C ERROR op=");
+    Serial_WriteString(g_i2c2_last_error.op);
+    Serial_WriteString(" step=");
+    Serial_WriteString(g_i2c2_last_error.step);
+    Serial_WriteString(" dev=0x");
+    Serial_WriteHex8(g_i2c2_last_error.dev_addr);
+    Serial_WriteString(" reg=0x");
+    Serial_WriteHex8(g_i2c2_last_error.reg);
+
+    if (g_i2c2_last_error.index != 0xFFU) {
+        Serial_WriteString(" idx=");
+        Serial_WriteInt(g_i2c2_last_error.index);
+    }
+
+    Serial_WriteString(" SR1=0x");
+    Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr1);
+    Serial_WriteString(" SR2=0x");
+    Serial_WriteHex16((uint16_t)g_i2c2_last_error.sr2);
+    Serial_WriteString("\r\n");
 }
 
 /* ---------------- Filter / PID ---------------- */
@@ -429,7 +532,7 @@ float Sensor_PID_Control(float target_angle, float pitch, float pitch_rate, floa
 }
 
 void Print_SensorLog(float pitch_acc, float pitch, float control){
-    static int print_div = 0;
+    static uint32_t print_div = 0U;
 
     if (++print_div >= 20U) {
             print_div = 0U;

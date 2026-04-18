@@ -18,6 +18,7 @@ typedef struct {
 void Sensor_I2C2_Init(void);
 int Sensor_MPU6050_Init(void);
 int Sensor_MPU6050_ReadRaw(MPU6050_RawData *raw);
+void Sensor_PrintLastI2CError(void);
 
 float Sensor_GetPitchAccDeg(int16_t ax, int16_t az);
 float Sensor_GetGyroYDegPerSec(int16_t gy_raw);

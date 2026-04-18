@@ -75,6 +75,7 @@ int main(void)
 
     if (Sensor_MPU6050_Init() < 0) {
         Serial_WriteString("MPU6050 init fail\r\n");
+        Sensor_PrintLastI2CError();
         while (1) {
             Motor_SetSigned(0);
         }
@@ -84,6 +85,7 @@ int main(void)
 
     if (Sensor_MPU6050_ReadRaw(&raw) < 0) {
         Serial_WriteString("MPU6050 first read fail\r\n");
+        Sensor_PrintLastI2CError();
         while (1) {
             Motor_SetSigned(0);
         }
@@ -97,7 +99,7 @@ int main(void)
         float dt = Get_DT();
         if (Sensor_MPU6050_ReadRaw(&raw) < 0) {
             Motor_SetSigned(0);
-            Serial_WriteString("I2C ERROR\r\n");
+            Sensor_PrintLastI2CError();
             delay_ms(20);
             dt = Get_DT();
             continue;

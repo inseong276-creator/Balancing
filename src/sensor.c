@@ -177,7 +177,7 @@ static void I2C2_GPIO_Init(void)
     GPIOB->CRH |=  (0xFUL << 12);
 }
 
-void Sensor_I2C2_Init(void)
+static void I2C2_InitHw(void)
 {
     I2C2_GPIO_Init();
 
@@ -192,29 +192,28 @@ void Sensor_I2C2_Init(void)
     I2C2->CR1 |= I2C_CR1_PE;
 }
 
-/*
-static void I2C2_Recover(void)
+void Sensor_I2C2_Init(void)
 {
-    I2C2->CR1 |= I2C_CR1_SWRST;
-    delay_loop(5000);
-    I2C2->CR1 &= ~I2C_CR1_SWRST;
-
-    I2C2->CR2 = 36;
-    I2C2->CCR = 180;
-    I2C2->TRISE = 37;
-    I2C2->CR1 |= I2C_CR1_ACK;
-    I2C2->CR1 |= I2C_CR1_PE;
+    I2C2_InitHw();
 }
-*/
 
-static void I2C2_Recover(void)
+static void I2C2_DeInit(void)
+{
+    I2C2->CR1 &= ~I2C_CR1_PE;
+    RCC->APB1RSTR |= RCC_APB1RSTR_I2C2RST;
+    delay_loop(2000);
+    RCC->APB1RSTR &= ~RCC_APB1RSTR_I2C2RST;
+    delay_loop(2000);
+    I2C2->CR1 |= I2C_CR1_SWRST;
+    delay_loop(2000);
+    I2C2->CR1 &= ~I2C_CR1_SWRST;
+}
+
+static void I2C2_BusClear(void)
 {
     int i;
 
-    /* 1) I2C peripheral disable */
-    I2C2->CR1 &= ~I2C_CR1_PE;
-
-    /* 2) PB10=SCL, PB11=SDA 를 GPIO open-drain output으로 변경
+    /* PB10=SCL, PB11=SDA 를 GPIO open-drain output으로 변경
        STM32F103 CRH:
        MODE=11 (50MHz output), CNF=01 (General purpose open-drain)
        => nibble = 0x7
@@ -260,33 +259,13 @@ static void I2C2_Recover(void)
 
     GPIOB->BSRR = (1UL << 11);   /* SDA High -> STOP */
     delay_loop(2000);
+}
 
-    /* 6) 혹시 남은 내부 상태가 있으면 SWRST도 한 번 수행 */
-    I2C2->CR1 |= I2C_CR1_SWRST;
-    delay_loop(2000);
-    I2C2->CR1 &= ~I2C_CR1_SWRST;
-
-    /* 7) 핀을 다시 I2C AF Open-Drain 50MHz로 복구
-       MODE=11, CNF=11 => 0xF
-    */
-    GPIOB->CRH &= ~(0xFUL << 8);
-    GPIOB->CRH |=  (0xFUL << 8);
-
-    GPIOB->CRH &= ~(0xFUL << 12);
-    GPIOB->CRH |=  (0xFUL << 12);
-
-    delay_loop(2000);
-
-    /* 8) I2C 재초기화 */
-    I2C2->CR1 = 0x0000;
-    I2C2->CR2 = 36;
-    I2C2->CCR = 180;
-    I2C2->TRISE = 37;
-    I2C2->CR1 |= I2C_CR1_ACK;
-    I2C2->CR1 |= I2C_CR1_PE;
-
-    /* 필요하면 STOP 비트 한번 더 정리 */
-    I2C2->CR1 |= I2C_CR1_STOP;
+static void I2C2_Recover(void)
+{
+    I2C2_DeInit();
+    I2C2_BusClear();
+    I2C2_InitHw();
     delay_loop(2000);
 }
 

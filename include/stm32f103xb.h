@@ -228,6 +228,7 @@ typedef struct
 
 /*RCC I2C Config*/
 #define RCC_APB1ENR_I2C2EN   (1UL << 22)
+#define RCC_APB1RSTR_I2C2RST (1UL << 22)
 
 /* USART SR bits */
 #define USART_SR_TXE          (1UL << 7)

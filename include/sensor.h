@@ -13,6 +13,8 @@ typedef struct {
     int16_t gz;
 } MPU6050_RawData;
 
+
+
 void Sensor_I2C2_Init(void);
 int Sensor_MPU6050_Init(void);
 int Sensor_MPU6050_ReadRaw(MPU6050_RawData *raw);

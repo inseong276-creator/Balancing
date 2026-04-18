@@ -9,5 +9,6 @@ void Serial_WriteString(const char *s);
 void Serial_WriteInt(int32_t value);
 void Serial_WriteFloat2(float value);
 void Serial_USART3_Init(void);
+void Read_CMD(void);
 
 #endif

@@ -2,29 +2,31 @@
 #include "serial.h"
 #include <stdint.h>
 
-void Serial_UASRT3_Init(void){
+void Serial_USART3_Init(void){
     /*
-        Partial Remap
-        PC10 : USART3 TX
-        PC11 : USART3 RX
+        Partial remap
+        PC10 : USART3_TX
+        PC11 : USART3_RX
     */
-    AFIO->MAPR &= (0x3 << 4);
-    AFIO->MAPR |= (0x1 << 4);
 
-    RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;
+    RCC->APB2ENR |= RCC_APB2ENR_AFIOEN | RCC_APB2ENR_IOPCEN;
     RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
 
-    /*PC10 = USART3_TX : AF PP 50MHz*/
-    GPIOC->CRH &= (0xFUL << 8);
-    GPIOC->CRH |= (0xBUL << 8);
+    AFIO->MAPR &= ~(0x3UL << 4);
+    AFIO->MAPR |=  (0x1UL << 4);
 
-    /*PC11 = USART3_RX : Input floating*/
-    GPIOC->CRH &= (0xFUL << 12);
-    GPIOC->CRH |= (0x4UL << 12);
+    /* PC10 = USART3_TX : AF Push-Pull 50MHz */
+    GPIOC->CRH &= ~(0xFUL << 8);
+    GPIOC->CRH |=  (0xBUL << 8);
 
+    /* PC11 = USART3_RX : Input floating */
+    GPIOC->CRH &= ~(0xFUL << 12);
+    GPIOC->CRH |=  (0x4UL << 12);
+
+    /* 36MHz / 9600 baud */
     USART3->BRR = (234 << 4) | 6;
-    USART3->CR1 |= USART_CR1_UE | USART_CR1_TE
-                |  USART_CR1_RE;
+
+    USART3->CR1 = USART_CR1_UE | USART_CR1_TE | USART_CR1_RE;
 }
 
 void Serial_USART2_Init(void)
@@ -106,4 +108,15 @@ void Serial_WriteFloat2(float value)
     Serial_WriteChar('.');
     Serial_WriteChar((char)('0' + (frac_part / 10)));
     Serial_WriteChar((char)('0' + (frac_part % 10)));
+}
+
+void Read_CMD(void){
+    if (USART3->SR & USART_SR_RXNE) {
+        char cmd = (char)USART3->DR;
+
+
+        Serial_WriteString("CMD : ");
+        Serial_WriteChar(cmd);
+        Serial_WriteString("\r\n");
+    }
 }

@@ -7,6 +7,10 @@
 #define isPrintSensorLog 0
 #define isPrintMotorLog 1
 
+float target_speed = 0.0f;
+float turn_cmd = 0.0f;
+
+
 static void delay_loop(volatile uint32_t count)
 {
     while (count--) {
@@ -49,12 +53,14 @@ int main(void)
     float pitch_gyro_rate;
     float pitch = 0.0f;
     float control;
-    uint32_t print_div = 0;
+
+
 
     SystemInit();
     TIM1_INIT();
 
     Serial_USART2_Init();
+    Serial_USART3_Init();
     Sensor_I2C2_Init();
 
     Motor_GPIO_Init();
@@ -97,11 +103,13 @@ int main(void)
             continue;
         }
 
+        UART_CMD_Process();
+
         float left_speed = Left_GetSpeed(dt);
         float right_speed = Right_GetSpeed(dt);
         float speed = (left_speed + right_speed) / 2;
 
-        float target_angle = Motor_PID_Control(speed);
+        float target_angle = Motor_PID_Control(target_speed, speed);
 
         pitch_acc = Sensor_GetPitchAccDeg(raw.ax, raw.az);
         pitch_gyro_rate = Sensor_GetGyroYDegPerSec(raw.gy);
@@ -112,7 +120,8 @@ int main(void)
         Motor_SetSigned((int16_t)control);
 
         if(isPrintSensorLog)    Print_SensorLog(pitch_acc, pitch, control);
-        if(isPrintMotorLog)     Print_MotorLog(right_speed, left_speed, speed, dt, target_angle);
+        if(isPrintMotorLog)     PrintMotorLog(right_speed, left_speed, speed, dt, target_angle);
+
 
         delay_ms(10);
     }

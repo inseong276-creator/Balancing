@@ -1,5 +1,9 @@
 #include "stm32f103xb.h"
 #include "motor.h"
+#include "serial.h"
+
+extern float target_speed;
+extern float turn_cmd;
 
 void Motor_GPIO_Init(void)
 {
@@ -253,9 +257,9 @@ float Left_GetSpeed(float dt){
     return speed;
 }
 
-float Motor_PID_Control(float speed){
+float Motor_PID_Control(float target_speed, float speed){
     float Kv = 0.013f;
-    float error = -speed;
+    float error = target_speed -speed;
 
     float target_angle = Kv * error;
 
@@ -265,8 +269,9 @@ float Motor_PID_Control(float speed){
     return target_angle;
 }
 
+
 void PrintMotorLog(float rs, float ls, float s, float dt, float ta){
-    static int print_div = 0;
+    static uint32_t print_div = 0;
 
     if(++print_div >= 20U){
         print_div = 0U;
@@ -284,4 +289,48 @@ void PrintMotorLog(float rs, float ls, float s, float dt, float ta){
         Serial_WriteString("\r\n");
 
        }
+}
+
+void UART_CMD_Process(void){
+    if (USART3->SR & USART_SR_RXNE) {
+
+        char cmd = (char)USART3->DR;
+
+        switch(cmd){
+            case 'w':
+                target_speed = 120.0f;
+                turn_cmd = 0.0f;
+                break;
+
+            case 's':
+                target_speed = -120.0f;
+                turn_cmd = 0.0f;
+                break;
+
+            case 'a':
+                turn_cmd = -30.0f;
+                target_speed = 0.0f;
+                break;
+
+            case 'd':
+                turn_cmd = 30.0f;
+                target_speed = 0.0f;
+                break;
+
+            case 'q':
+                target_speed = 0.0f;
+                turn_cmd = 0.0f;
+                break;
+
+            default:
+                break;
+        }
+
+        // ===== 출력 =====
+        Serial_WriteString("CMD : ");
+        Serial_WriteChar(cmd);
+        Serial_WriteString("  Target Speed : ");
+        Serial_WriteFloat2(target_speed);
+        Serial_WriteString("\r\n");
+    }
 }

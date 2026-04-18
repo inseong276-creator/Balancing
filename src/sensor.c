@@ -323,6 +323,10 @@ static int I2C2_SendAddress(uint8_t addr)
             (void)temp;
             return 0;
         }
+
+        if ((sr1 & (I2C_SR1_AF | I2C_SR1_BERR | I2C_SR1_ARLO)) != 0U) {
+            return -1;
+        }
     }
 
     return -1;

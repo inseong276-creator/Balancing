@@ -106,6 +106,21 @@ static void I2C2_PrintFlag(const char *name)
     Serial_WriteString(name);
 }
 
+static void I2C2_PrintBusState(const char *stage)
+{
+    Serial_WriteString("I2C RECOVER ");
+    Serial_WriteString(stage);
+    Serial_WriteString(" SCL=");
+    Serial_WriteInt((GPIOB->IDR >> 10) & 0x1U);
+    Serial_WriteString(" SDA=");
+    Serial_WriteInt((GPIOB->IDR >> 11) & 0x1U);
+    Serial_WriteString(" SR1=0x");
+    Serial_WriteHex16((uint16_t)I2C2->SR1);
+    Serial_WriteString(" SR2=0x");
+    Serial_WriteHex16((uint16_t)I2C2->SR2);
+    Serial_WriteString("\r\n");
+}
+
 static void I2C2_PrintDiagnosis(void)
 {
     Serial_WriteString(" cause=");
@@ -263,9 +278,13 @@ static void I2C2_BusClear(void)
 
 static void I2C2_Recover(void)
 {
+    I2C2_PrintBusState("before");
     I2C2_DeInit();
+    I2C2_PrintBusState("after_deinit");
     I2C2_BusClear();
+    I2C2_PrintBusState("after_bus_clear");
     I2C2_InitHw();
+    I2C2_PrintBusState("after_init");
     delay_loop(2000);
 }
 
@@ -627,4 +646,3 @@ void Print_SensorLog(float pitch_acc, float pitch, float control){
             Serial_WriteString("\r\n");
         }
 }
-

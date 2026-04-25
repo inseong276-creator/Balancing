@@ -79,7 +79,6 @@ int main(void)
     Motor_GPIO_Init();
     Motor_PWM_Init();
     Motor_SetStandby(1);
-    
     Encoder_Init();
 
     Serial_WriteString("MPU6050 I2C2 + USART2 pitch test start\r\n");
@@ -112,6 +111,7 @@ int main(void)
         float dt = Get_DT();
         if (Sensor_MPU6050_ReadRaw(&raw) < 0) {
             Motor_SetSigned(0);
+            /*
             i2c_error_count++;
             Sensor_PrintLastI2CError();
 
@@ -119,6 +119,7 @@ int main(void)
                 Serial_WriteString("MCU RESET: too many I2C errors\r\n");
                 delay_ms(20);
                 MCU_SystemReset();
+            */
             }
 
             delay_ms(20);
@@ -126,7 +127,7 @@ int main(void)
             continue;
         }
 
-        i2c_error_count = 0U;
+        //i2c_error_count = 0U;
 
         UART_CMD_Process();
         Motor_UpdateTargetSpeed(dt);

@@ -22,6 +22,7 @@ void Motor_Forward(void);
 void Motor_Reverse(void);
 void Motor_Break(void);
 void Motor_SetSigned(int16_t pwm);
+void Motor_SetDifferentialSigned(int16_t left_pwm, int16_t right_pwm);
 void Motor_PWM_Init(void);
 void Encoder_Init(void);
 

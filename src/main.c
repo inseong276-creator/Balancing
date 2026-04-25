@@ -6,9 +6,6 @@
 
 #define isPrintSensorLog 0
 #define isPrintMotorLog 1
-#define I2C_ERROR_RESET_THRESHOLD 10U
-#define SCB_AIRCR_VECTKEY         (0x5FAUL << 16)
-#define SCB_AIRCR_SYSRESETREQ     (1UL << 2)
 
 float target_speed = 0.0f;
 float cmd_target_speed = 0.0f;
@@ -26,14 +23,6 @@ static void delay_ms(uint32_t ms)
 {
     while (ms--) {
         delay_loop(8000);
-    }
-}
-
-static void MCU_SystemReset(void)
-{
-    SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
-
-    while (1) {
     }
 }
 
@@ -61,11 +50,12 @@ void TIM1_INIT(void){
 int main(void)
 {
     MPU6050_RawData raw;
-    uint32_t i2c_error_count = 0U;
     float pitch_acc;
     float pitch_gyro_rate;
     float pitch = 0.0f;
     float control;
+    float left_pwm;
+    float right_pwm;
 
 
 
@@ -111,23 +101,9 @@ int main(void)
         float dt = Get_DT();
         if (Sensor_MPU6050_ReadRaw(&raw) < 0) {
             Motor_SetSigned(0);
-            /*
-            i2c_error_count++;
-            Sensor_PrintLastI2CError();
-
-            if (i2c_error_count >= I2C_ERROR_RESET_THRESHOLD) {
-                Serial_WriteString("MCU RESET: too many I2C errors\r\n");
-                delay_ms(20);
-                MCU_SystemReset();
-            */
-            }
-
             delay_ms(20);
-            dt = Get_DT();
             continue;
         }
-
-        //i2c_error_count = 0U;
 
         UART_CMD_Process();
         Motor_UpdateTargetSpeed(dt);
@@ -144,7 +120,10 @@ int main(void)
         pitch = Sensor_ComplementaryFilter(pitch, pitch_gyro_rate, pitch_acc, dt);
         control = Sensor_PID_Control(target_angle, pitch, pitch_gyro_rate, dt);
 
-        Motor_SetSigned((int16_t)control);
+        left_pwm = control + turn_cmd;
+        right_pwm = control - turn_cmd;
+
+        Motor_SetDifferentialSigned((int16_t)left_pwm, (int16_t)right_pwm);
 
         if(isPrintSensorLog)    Print_SensorLog(pitch_acc, pitch, control);
         if(isPrintMotorLog)     PrintMotorLog(right_speed, left_speed, speed, dt, target_angle);

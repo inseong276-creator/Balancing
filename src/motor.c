@@ -1,12 +1,92 @@
 #include "stm32f103xb.h"
 #include "motor.h"
 #include "serial.h"
+#include <stdint.h>
 
 extern float target_speed;
 extern float cmd_target_speed;
 extern float turn_cmd;
 
 #define MOTOR_SPEED_RAMP_RATE 300.0f
+#define TURN_PWM_LIMIT        220.0f
+
+static int16_t ClampPwm(int16_t pwm)
+{
+    if (pwm > 1000) {
+        return 1000;
+    }
+
+    if (pwm < -1000) {
+        return -1000;
+    }
+
+    return pwm;
+}
+
+static uint16_t Motor_RightMagnitude(int16_t pwm)
+{
+    int32_t mag = (pwm >= 0) ? pwm : -pwm;
+    int32_t scaled = (mag * 115) / 100;
+
+    if (scaled > 1000) {
+        scaled = 1000;
+    }
+
+    return (uint16_t)scaled;
+}
+
+static uint16_t Motor_LeftMagnitude(int16_t pwm)
+{
+    int32_t mag = (pwm >= 0) ? pwm : -pwm;
+
+    if (mag > 1000) {
+        mag = 1000;
+    }
+
+    return (uint16_t)mag;
+}
+
+static void Motor_SetRightSigned(int16_t pwm)
+{
+    uint16_t mag = Motor_RightMagnitude(pwm);
+
+    if (pwm == 0) {
+        GPIOB->BSRR = AIN1_PIN | AIN2_PIN;
+        TIM2->CCR1 = 0;
+        return;
+    }
+
+    if (pwm > 0) {
+        GPIOB->BSRR = AIN1_PIN;
+        GPIOB->BRR = AIN2_PIN;
+    } else {
+        GPIOB->BSRR = AIN2_PIN;
+        GPIOB->BRR = AIN1_PIN;
+    }
+
+    TIM2->CCR1 = mag;
+}
+
+static void Motor_SetLeftSigned(int16_t pwm)
+{
+    uint16_t mag = Motor_LeftMagnitude(pwm);
+
+    if (pwm == 0) {
+        GPIOA->BSRR = BIN1_PIN | BIN2_PIN;
+        TIM2->CCR2 = 0;
+        return;
+    }
+
+    if (pwm > 0) {
+        GPIOA->BSRR = BIN1_PIN;
+        GPIOA->BRR = BIN2_PIN;
+    } else {
+        GPIOA->BSRR = BIN2_PIN;
+        GPIOA->BRR = BIN1_PIN;
+    }
+
+    TIM2->CCR2 = mag;
+}
 
 static float MoveToward(float current, float target, float max_step)
 {
@@ -210,25 +290,18 @@ void Motor_Brake(void)
 
 void Motor_SetSigned(int16_t pwm)
 {
-    int16_t mag;
+    pwm = ClampPwm(pwm);
+    Motor_SetRightSigned(pwm);
+    Motor_SetLeftSigned(pwm);
+}
 
-    if (pwm > 1000) pwm = 1000;
-    if (pwm < -1000) pwm = -1000;
+void Motor_SetDifferentialSigned(int16_t left_pwm, int16_t right_pwm)
+{
+    left_pwm = ClampPwm(left_pwm);
+    right_pwm = ClampPwm(right_pwm);
 
-    if (pwm == 0) {
-        Motor_Brake();
-        return;
-    }
-
-    mag = (pwm > 0) ? pwm : -pwm;
-
-    if (pwm > 0)
-        Motor_Forward();
-    else
-        Motor_Reverse();
-
-    TIM2->CCR1 = 1.15 * mag;
-    TIM2->CCR2 = 1.0 * mag;
+    Motor_SetRightSigned(right_pwm);
+    Motor_SetLeftSigned(left_pwm);
 }
 
 
@@ -321,6 +394,8 @@ void PrintMotorLog(float rs, float ls, float s, float dt, float ta){
         Serial_WriteFloat2(cmd_target_speed);
         Serial_WriteString("  Ramp Speed : ");
         Serial_WriteFloat2(target_speed);
+        Serial_WriteString("  Turn : ");
+        Serial_WriteFloat2(turn_cmd);
         Serial_WriteString(" Target Angle : ");
         Serial_WriteFloat2(ta);
         Serial_WriteString("\r\n");
@@ -336,22 +411,18 @@ void UART_CMD_Process(void){
         switch(cmd){
             case 'w':
                 cmd_target_speed = 120.0f;
-                turn_cmd = 0.0f;
                 break;
 
             case 's':
                 cmd_target_speed = -120.0f;
-                turn_cmd = 0.0f;
                 break;
 
             case 'a':
-                turn_cmd = -30.0f;
-                cmd_target_speed = 0.0f;
+                turn_cmd = -TURN_PWM_LIMIT;
                 break;
 
             case 'd':
-                turn_cmd = 30.0f;
-                cmd_target_speed = 0.0f;
+                turn_cmd = TURN_PWM_LIMIT;
                 break;
 
             case 'q':

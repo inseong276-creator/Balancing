@@ -105,7 +105,7 @@ int main(void)
             continue;
         }
 
-        UART_CMD_Process();
+        UART_CMD_Process(dt);
         Motor_UpdateTargetSpeed(dt);
 
         float left_speed = Left_GetSpeed(dt);

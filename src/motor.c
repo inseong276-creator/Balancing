@@ -9,6 +9,7 @@ extern float turn_cmd;
 
 #define MOTOR_SPEED_RAMP_RATE 300.0f
 #define TURN_PWM_LIMIT        50.0f
+#define CMD_TIMEOUT_SEC       0.20f
 
 static int16_t ClampPwm(int16_t pwm)
 {
@@ -403,10 +404,15 @@ void PrintMotorLog(float rs, float ls, float s, float dt, float ta){
        }
 }
 
-void UART_CMD_Process(void){
-    if (USART3->SR & USART_SR_RXNE) {
+void UART_CMD_Process(float dt){
+    static float cmd_idle_time = CMD_TIMEOUT_SEC;
 
+    cmd_idle_time += dt;
+
+    if (USART3->SR & USART_SR_RXNE) {
         char cmd = (char)USART3->DR;
+
+        cmd_idle_time = 0.0f;
 
         switch(cmd){
             case 'w':
@@ -443,5 +449,11 @@ void UART_CMD_Process(void){
         Serial_WriteString("  Ramp Target : ");
         Serial_WriteFloat2(target_speed);
         Serial_WriteString("\r\n");
+        return;
+    }
+
+    if (cmd_idle_time >= CMD_TIMEOUT_SEC) {
+        cmd_target_speed = 0.0f;
+        turn_cmd = 0.0f;
     }
 }

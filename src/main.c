@@ -111,6 +111,7 @@ int main(void)
         float left_speed = Left_GetSpeed(dt);
         float right_speed = Right_GetSpeed(dt);
         float speed = (left_speed + right_speed) / 2;
+        speed = speed / 10;
 
         float target_angle = Motor_PID_Control(target_speed, speed);
 

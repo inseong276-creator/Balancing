@@ -8,7 +8,7 @@ extern float cmd_target_speed;
 extern float turn_cmd;
 
 #define MOTOR_SPEED_RAMP_RATE 300.0f
-#define TURN_PWM_LIMIT        220.0f
+#define TURN_PWM_LIMIT        50.0f
 
 static int16_t ClampPwm(int16_t pwm)
 {
@@ -351,8 +351,8 @@ float Left_GetSpeed(float dt){
 }
 
 float Motor_PID_Control(float target_speed, float speed){
-    float Kv = 0.013f;
-    float error = target_speed -speed;
+    float Kv = 0.043f;
+    float error = target_speed*0.07 -speed;
 
     float target_angle = Kv * error;
 

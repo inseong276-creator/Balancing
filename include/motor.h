@@ -28,5 +28,6 @@ void Encoder_Init(void);
 float Left_GetSpeed(float dt);
 float Right_GetSpeed(float dt);
 float Motor_PID_Control(float target_speed, float speed);
+void Motor_UpdateTargetSpeed(float dt);
 void PrintMotorLog(float rs, float ls, float s, float dt, float ta);
 void UART_CMD_Process(void);

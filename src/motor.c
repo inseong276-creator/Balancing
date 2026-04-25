@@ -3,7 +3,27 @@
 #include "serial.h"
 
 extern float target_speed;
+extern float cmd_target_speed;
 extern float turn_cmd;
+
+#define MOTOR_SPEED_RAMP_RATE 300.0f
+
+static float MoveToward(float current, float target, float max_step)
+{
+    if (current < target) {
+        current += max_step;
+        if (current > target) {
+            current = target;
+        }
+    } else if (current > target) {
+        current -= max_step;
+        if (current < target) {
+            current = target;
+        }
+    }
+
+    return current;
+}
 
 void Motor_GPIO_Init(void)
 {
@@ -269,6 +289,19 @@ float Motor_PID_Control(float target_speed, float speed){
     return target_angle;
 }
 
+void Motor_UpdateTargetSpeed(float dt)
+{
+    float limited_dt = dt;
+
+    if (limited_dt < 0.0005f) {
+        limited_dt = 0.0005f;
+    }
+
+    target_speed = MoveToward(target_speed,
+                              cmd_target_speed,
+                              MOTOR_SPEED_RAMP_RATE * limited_dt);
+}
+
 
 void PrintMotorLog(float rs, float ls, float s, float dt, float ta){
     static uint32_t print_div = 0;
@@ -284,6 +317,10 @@ void PrintMotorLog(float rs, float ls, float s, float dt, float ta){
         Serial_WriteFloat2(s);
         Serial_WriteString("  dt : ");
         Serial_WriteFloat2(dt);
+        Serial_WriteString("  Cmd Speed : ");
+        Serial_WriteFloat2(cmd_target_speed);
+        Serial_WriteString("  Ramp Speed : ");
+        Serial_WriteFloat2(target_speed);
         Serial_WriteString(" Target Angle : ");
         Serial_WriteFloat2(ta);
         Serial_WriteString("\r\n");
@@ -298,26 +335,27 @@ void UART_CMD_Process(void){
 
         switch(cmd){
             case 'w':
-                target_speed = 120.0f;
+                cmd_target_speed = 120.0f;
                 turn_cmd = 0.0f;
                 break;
 
             case 's':
-                target_speed = -120.0f;
+                cmd_target_speed = -120.0f;
                 turn_cmd = 0.0f;
                 break;
 
             case 'a':
                 turn_cmd = -30.0f;
-                target_speed = 0.0f;
+                cmd_target_speed = 0.0f;
                 break;
 
             case 'd':
                 turn_cmd = 30.0f;
-                target_speed = 0.0f;
+                cmd_target_speed = 0.0f;
                 break;
 
             case 'q':
+                cmd_target_speed = 0.0f;
                 target_speed = 0.0f;
                 turn_cmd = 0.0f;
                 break;
@@ -329,7 +367,9 @@ void UART_CMD_Process(void){
         // ===== 출력 =====
         Serial_WriteString("CMD : ");
         Serial_WriteChar(cmd);
-        Serial_WriteString("  Target Speed : ");
+        Serial_WriteString("  Cmd Target : ");
+        Serial_WriteFloat2(cmd_target_speed);
+        Serial_WriteString("  Ramp Target : ");
         Serial_WriteFloat2(target_speed);
         Serial_WriteString("\r\n");
     }

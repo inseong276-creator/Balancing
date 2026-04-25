@@ -11,6 +11,7 @@
 #define SCB_AIRCR_SYSRESETREQ     (1UL << 2)
 
 float target_speed = 0.0f;
+float cmd_target_speed = 0.0f;
 float turn_cmd = 0.0f;
 
 
@@ -128,6 +129,7 @@ int main(void)
         i2c_error_count = 0U;
 
         UART_CMD_Process();
+        Motor_UpdateTargetSpeed(dt);
 
         float left_speed = Left_GetSpeed(dt);
         float right_speed = Right_GetSpeed(dt);
